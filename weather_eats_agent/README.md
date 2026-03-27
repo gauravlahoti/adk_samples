@@ -80,22 +80,24 @@ cd weather_eats_agent
 ### 2. Create and activate a virtual environment
 
 ```bash
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
 ```
 
 ### 3. Install dependencies
 
 ```bash
-pip install -e .
+uv sync
 ```
 
 ### 4. Configure environment variables
 
-Copy the example file and fill in your values:
+Create a `.env` file in this directory with the following variables
+(use `.env.example` as a reference):
 
 ```bash
 cp .env.example .env
+# Then open .env and fill in your actual values
 ```
 
 `.env` variables:
