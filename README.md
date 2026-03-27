@@ -6,16 +6,14 @@ A collection of agent samples built with [Google Agent Development Kit (ADK)](ht
 
 ```
 adk-samples/
-└── python/
-    └── agents/
-        └── weather_eats_agent/   # AI-powered restaurant discovery agent
+└── weather_eats_agent/   # AI-powered restaurant discovery agent
 ```
 
 ## Samples
 
 | Agent | Description | Language |
 |---|---|---|
-| [weather_eats_agent](python/agents/weather_eats_agent/) | Recommends restaurants based on live weather and location using Google Maps and Gemini | Python |
+| [weather_eats_agent](weather_eats_agent/) | Recommends restaurants based on live weather and location using Google Maps and Gemini | Python |
 
 ## Getting Started
 
