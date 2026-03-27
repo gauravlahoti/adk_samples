@@ -1,0 +1,10 @@
+[project]
+name = "weather-eats-agent"
+version = "0.1.0"
+description = "AI-powered restaurant discovery agent using live weather and Google Maps, built with Google ADK and MCP"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "google-adk>=1.27.4",
+    "python-dotenv>=1.0.0",
+]

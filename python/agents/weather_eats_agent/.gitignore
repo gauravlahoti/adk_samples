@@ -1,0 +1,49 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyo
+build/
+dist/
+wheels/
+*.egg-info
+.eggs/
+
+# Virtual environments
+.venv
+venv/
+env/
+
+# Dependency locks (keep uv.lock but ignore pip freeze artifacts)
+pip-requirements.txt
+
+# Secrets and credentials — never commit these
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*service_account*.json
+gcloud/
+token.json
+
+# ADK runtime artifacts
+.adk/
+
+# macOS
+.DS_Store
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Logs
+*.log
