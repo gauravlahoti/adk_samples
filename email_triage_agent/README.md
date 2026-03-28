@@ -268,9 +268,3 @@ async def triage_email(subject: str, body: str, sender: str) -> dict:
         if hasattr(event, 'content'):
             return event.content
 ```
-
----
-
-## License
-
-MIT
