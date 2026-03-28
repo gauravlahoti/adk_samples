@@ -6,6 +6,28 @@ Built with [Google Agent Development Kit (ADK)](https://google.github.io/adk-doc
 
 ---
 
+## The Problem
+
+Finding the right restaurant is harder than it should be. You search for "best restaurants near me" and get a list, but it doesn't consider the weather — recommending a rooftop bar when it's pouring rain, or a cozy indoor spot when the weather is perfect for outdoor dining.
+
+People end up making poor dining choices, arriving at restaurants that don't match the conditions, or spending too much time researching and cross-referencing weather apps with restaurant reviews.
+
+---
+
+## What This Agent Solves
+
+The agent acts as a context-aware dining concierge. When you ask for restaurant recommendations, the agent:
+
+| Capability | Description |
+|------------|-------------|
+| **Checks Weather** | Fetches live weather conditions for your location |
+| **Searches Places** | Finds real restaurants via Google Maps (no hallucinated data) |
+| **Filters by Context** | Rain → indoor venues, Sunny → rooftop/outdoor suitable |
+| **Ranks Results** | Prioritizes by rating, weather-fit, and your preferences |
+| **Emails Results** | Optionally sends recommendations to your inbox |
+
+---
+
 ## Features
 
 - 🌦️ **Live weather lookup** before every restaurant search — recommendations adapt to current conditions (rain → indoor, sunny → rooftop, etc.)
