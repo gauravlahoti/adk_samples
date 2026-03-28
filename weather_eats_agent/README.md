@@ -52,6 +52,10 @@ WeatherEats Agent  (Google ADK LlmAgent — Gemini)
       └── send-email
 ```
 
+### Sequence Diagram
+
+![WeatherEats Agent Sequence Diagram](sequence_diagram.png)
+
 ---
 
 ## MCP Servers
