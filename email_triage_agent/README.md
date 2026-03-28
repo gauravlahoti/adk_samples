@@ -16,7 +16,7 @@ This is slow, inconsistent, and expensive. A support agent reading 200 emails a 
 
 ## What This Agent Solves
 
-The agent acts as an automated first-pass triage layer. The moment an email arrives, the agent:
+The  agent acts as an automated first-pass triage layer. The moment an email arrives, the agent:
 
 | Capability | Description |
 |------------|-------------|
@@ -194,6 +194,62 @@ Alternatively, run via CLI:
 
 ```bash
 adk run email_triage_agent
+```
+
+---
+
+## Deploying to Cloud Run
+
+Deploy the agent to Google Cloud Run for production use.
+
+### 1. Set environment variables
+
+```bash
+source .env
+export SERVICE_NAME="email-triage-agent-service"
+export APP_NAME="email_triage_agent"
+export AGENT_PATH="./email_triage_agent"
+```
+
+### 2. Deploy with ADK CLI
+
+```bash
+adk deploy cloud_run \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --region=$GOOGLE_CLOUD_LOCATION \
+  --service_name=$SERVICE_NAME \
+  --app_name=$APP_NAME \
+  --with_ui \
+  $AGENT_PATH
+```
+
+### 3. Access the deployed agent
+
+After deployment completes, the CLI will output a URL like:
+```
+https://email-triage-agent-service-xxxxxx-uc.a.run.app
+```
+
+### 4. View logs in Cloud Logging
+
+```bash
+gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=$SERVICE_NAME" \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --limit=50
+```
+
+Or view in the [GCP Console](https://console.cloud.google.com/logs).
+
+### 5. Undeploy the agent
+
+To delete the Cloud Run service:
+
+```bash
+source .env
+gcloud run services delete email-triage-agent-service \
+  --project=$GOOGLE_CLOUD_PROJECT \
+  --region=$GOOGLE_CLOUD_LOCATION \
+  --quiet
 ```
 
 ---
