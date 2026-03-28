@@ -60,6 +60,10 @@ Smart Email Triage Agent  (Google ADK LlmAgent - Gemini)
 Structured TriageResult (Pydantic schema)
 ```
 
+### Sequence Diagram
+
+![Email Triage Agent Sequence Diagram](sequence_diagram.svg)
+
 ---
 
 ## Tools
