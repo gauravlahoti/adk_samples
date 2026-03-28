@@ -232,8 +232,29 @@ https://email-triage-agent-service-xxxxxx-uc.a.run.app
 
 ### 4. View logs in Cloud Logging
 
+The agent emits structured logs with the prefix `EMAIL_TRIAGE_AGENT:` for easy filtering.
+
+**GCP Console query:**
+```
+resource.type="cloud_run_revision"
+resource.labels.service_name="email-triage-agent-service"
+textPayload=~"EMAIL_TRIAGE_AGENT:"
+```
+
+**Filter by log type:**
+
+| Filter | Shows |
+|--------|-------|
+| `EMAIL_TRIAGE_AGENT:INPUT` | User prompts |
+| `EMAIL_TRIAGE_AGENT:OUTPUT` | Agent responses |
+| `EMAIL_TRIAGE_AGENT:TOOL_CALL` | Tool invocations |
+| `EMAIL_TRIAGE_AGENT:TOOL_RESULT` | Tool outputs (JSON) |
+| `EMAIL_TRIAGE_AGENT:ESCALATION` | Escalation alerts |
+| `EMAIL_TRIAGE_AGENT:ROUTING` | Department routing decisions |
+
+**CLI example:**
 ```bash
-gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=$SERVICE_NAME" \
+gcloud logging read 'textPayload=~"EMAIL_TRIAGE_AGENT:ESCALATION"' \
   --project=$GOOGLE_CLOUD_PROJECT \
   --limit=50
 ```

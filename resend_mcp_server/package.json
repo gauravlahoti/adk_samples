@@ -1,0 +1,16 @@
+{
+  "name": "resend-mcp-server",
+  "version": "1.0.0",
+  "description": "Resend MCP Server for Cloud Run deployment - provides email functionality via Streamable HTTP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npx resend-mcp --http --port 3000"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "resend-mcp": "latest"
+  }
+}
