@@ -1,0 +1,19 @@
+[project]
+name = "email-triage-agent"
+version = "0.1.0"
+description = "AI-powered smart email triage agent for automated classification, prioritization, and routing of business emails, built with Google ADK"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "google-adk>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["email_triage_agent*"]
