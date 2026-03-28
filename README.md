@@ -63,7 +63,3 @@ Then open [http://localhost:8000](http://localhost:8000) and select the agent.
 - `gcloud auth application-default login` for authentication
 
 ---
-
-## License
-
-MIT
