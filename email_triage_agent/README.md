@@ -62,7 +62,7 @@ Structured TriageResult (Pydantic schema)
 
 ### Sequence Diagram
 
-![Email Triage Agent Sequence Diagram](sequence_diagram.svg)
+![Email Triage Agent Sequence Diagram](sequence_diagram.png)
 
 ---
 
