@@ -10,8 +10,27 @@ This server exposes the Resend email API as an MCP endpoint that agents can conn
 
 - 📧 Send emails via Resend API
 - 🔗 Streamable HTTP transport for MCP
-- ☁️ Deployable on Cloud Run
+- ☁️ Deployable on Cloud Run (with proxy wrapper to bypass host validation)
 - 🔄 Reusable by multiple agents
+- 🔐 API key passed via Authorization Bearer header (no secrets on server)
+
+---
+
+## Architecture
+
+```
+Client (Agent)
+    │
+    │ Authorization: Bearer <RESEND_API_KEY>
+    ▼
+Cloud Run (server.js - proxy)
+    │
+    │ Host: 127.0.0.1:3001
+    ▼
+Internal resend-mcp server (port 3001)
+```
+
+The proxy wrapper rewrites the `Host` header to localhost, bypassing resend-mcp's host validation.
 
 ---
 
@@ -31,20 +50,21 @@ This server exposes the Resend email API as an MCP endpoint that agents can conn
 npm install
 ```
 
-### 2. Set environment variables
-
-```bash
-cp .env.example .env
-# Edit .env with your RESEND_API_KEY
-```
-
-### 3. Run locally
+### 2. Run locally
 
 ```bash
 npm run dev
 ```
 
 Server will be available at `http://localhost:3000/mcp`
+
+### 3. Test with MCP Inspector
+
+1. Run: `npx @modelcontextprotocol/inspector`
+2. Transport: **Streamable HTTP**
+3. URL: `http://127.0.0.1:3000/mcp`
+4. Add header: `Authorization: Bearer <your-resend-api-key>`
+5. Click Connect
 
 ---
 
@@ -56,24 +76,14 @@ Server will be available at `http://localhost:3000/mcp`
 cd /path/to/adk-samples/resend_mcp_server
 ```
 
-### 2. Set environment variables
-
-```bash
-export GOOGLE_CLOUD_PROJECT="gcp-experiments-490306"
-export GOOGLE_CLOUD_LOCATION="us-central1"
-export RESEND_API_KEY="your_resend_api_key"
-export SENDER_EMAIL_ADDRESS="onboarding@resend.dev"
-```
-
-### 3. Deploy directly (no Dockerfile needed)
+### 2. Deploy (no env vars needed - API key is passed by client)
 
 ```bash
 gcloud run deploy resend-mcp-server \
   --source . \
-  --project=$GOOGLE_CLOUD_PROJECT \
-  --region=$GOOGLE_CLOUD_LOCATION \
-  --allow-unauthenticated \
-  --set-env-vars="RESEND_API_KEY=$RESEND_API_KEY,SENDER_EMAIL_ADDRESS=$SENDER_EMAIL_ADDRESS"
+  --project=gcp-experiments-490306 \
+  --region=us-central1 \
+  --allow-unauthenticated
 ```
 
 ### 3. Get the service URL
@@ -86,10 +96,12 @@ The MCP endpoint will be at: `https://resend-mcp-server-xxxxx-uc.a.run.app/mcp`
 
 ## Using with Agents
 
-Add this URL to your agent's `.env` file:
+Add these to your agent's `.env` file:
 
 ```bash
 RESEND_MCP_URL=https://resend-mcp-server-xxxxx-uc.a.run.app/mcp
+RESEND_API_KEY=re_xxxxxxxxxxxx
+SENDER_EMAIL_ADDRESS=onboarding@resend.dev
 ```
 
 Then connect via Streamable HTTP in your agent:
@@ -99,10 +111,14 @@ from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 
 resend_mcp_url = os.environ.get("RESEND_MCP_URL")
+resend_api_key = os.environ.get("RESEND_API_KEY")
 
 resend_toolset = McpToolset(
     connection_params=StreamableHTTPConnectionParams(
-        url=resend_mcp_url
+        url=resend_mcp_url,
+        headers={
+            "Authorization": f"Bearer {resend_api_key}"
+        }
     ),
     tool_filter=['send-email']
 )
@@ -122,8 +138,8 @@ resend_toolset = McpToolset(
 
 ```bash
 gcloud run services delete resend-mcp-server \
-  --project=$GOOGLE_CLOUD_PROJECT \
-  --region=$GOOGLE_CLOUD_LOCATION \
+  --project=gcp-experiments-490306 \
+  --region=us-central1 \
   --quiet
 ```
 
@@ -131,6 +147,7 @@ gcloud run services delete resend-mcp-server \
 
 ## Security Notes
 
-- The MCP server authenticates to Resend using the `RESEND_API_KEY` environment variable
+- API key is passed via `Authorization: Bearer` header by the client (agent)
+- No secrets stored on the MCP server itself
 - On Resend's free tier with `onboarding@resend.dev`, emails can only be sent to your registered email
 - To send to any recipient, [verify a custom domain](https://resend.com/domains)
