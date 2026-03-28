@@ -14,7 +14,7 @@ from google.adk.agents import LlmAgent
 from google.genai.types import GenerateContentConfig, SafetySetting, HarmCategory, HarmBlockThreshold
 
 from email_triage_agent.prompts import AGENT_INSTRUCTION
-from email_triage_agent.tools import check_escalation,route_to_department, TriageResult
+from email_triage_agent.tools import detect_email_signals, route_to_department
 
 # Load environment variables
 load_dotenv()
@@ -36,12 +36,11 @@ root_agent = LlmAgent(
     - Detects escalation risk for immediate human attention
     - Provides suggested actions and concise summaries
     
-    Returns structured TriageResult with: priority, category, sentiment, suggested_action, summary, escalate.
+    Returns structured TriageResult for emails with: priority, category, sentiment, suggested_action, summary, escalate.
+    Handles greetings and questions conversationally.
     """,
     instruction=AGENT_INSTRUCTION,
-    tools=[check_escalation,route_to_department],
-    output_schema=TriageResult,
-    output_key="triage_result",
+    tools=[detect_email_signals, route_to_department],
     generate_content_config=GenerateContentConfig(
         temperature=0.2,  # Lower temperature for consistent, reliable triage
         top_k=20,

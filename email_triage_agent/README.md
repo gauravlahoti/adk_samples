@@ -48,8 +48,8 @@ User
  v
 Smart Email Triage Agent  (Google ADK LlmAgent - Gemini)
  |
- +-- Tool: check_escalation
- |     Detects: legal threats, fraud, extreme dissatisfaction
+ +-- Tool: detect_email_signals
+ |     Detects: legal threats, fraud, urgency, dissatisfaction
  |     Returns: {status, escalate, matched_triggers}
  |
  +-- Tool: route_to_department
@@ -64,16 +64,16 @@ Structured TriageResult (Pydantic schema)
 
 ## Tools
 
-### 1. check_escalation
+### 1. detect_email_signals
 
 | Detail | Value |
 |--------|-------|
-| Purpose | Detect urgent escalation triggers |
+| Purpose | Detect signals for triage decisions |
 | When to use | Call first on every email |
 | Input | `email_text` (string) |
 | Output | `{status, escalate, matched_triggers}` |
 
-Scans the email for language that signals immediate human escalation is needed, such as legal threats or expressions of extreme dissatisfaction.
+Scans the email for signals that inform triage decisions, including legal threats, urgency indicators, and expressions of dissatisfaction.
 
 **Triggers detected:**
 - Legal: `lawsuit`, `legal action`, `attorney`, `sue`, `court`
@@ -85,7 +85,7 @@ Scans the email for language that signals immediate human escalation is needed, 
 | Detail | Value |
 |--------|-------|
 | Purpose | Identify the appropriate team |
-| When to use | Call after check_escalation |
+| When to use | Call after detect_email_signals |
 | Input | `email_text` (string) |
 | Output | `{status, department, matched_keyword}` |
 
@@ -230,7 +230,7 @@ email_triage_agent/
 │   ├── __init__.py       # Package initialization
 │   ├── agent.py          # Main agent definition (root_agent)
 │   ├── prompts.py        # System instructions
-│   └── tools.py          # Custom tools (check_escalation, route_to_department)
+│   └── tools.py          # Custom tools (detect_email_signals, route_to_department)
 ├── .env                  # Environment variables (not committed)
 ├── .env.example          # Environment variable template
 ├── pyproject.toml        # Project configuration

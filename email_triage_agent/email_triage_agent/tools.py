@@ -39,12 +39,12 @@ ROUTING_MAP = {
 }
 
 
-def check_escalation(email_text: str) -> dict:
+def detect_email_signals(email_text: str) -> dict:
     """
-    Scans the email for language that signals immediate human escalation is needed,
-    such as legal threats or expressions of extreme dissatisfaction.
+    Scans the email for signals that inform triage decisions, including
+    legal threats, urgency indicators, and expressions of dissatisfaction.
 
-    When to use: Call this tool first on every email to detect urgent escalation triggers.
+    When to use: Call this tool first on every email to detect important signals.
 
     Args:
         email_text: The raw email body text.
@@ -112,4 +112,4 @@ def route_to_department(email_text: str) -> dict:
 
 
 # Export tools list
-TRIAGE_TOOLS = [check_escalation, route_to_department]
+TRIAGE_TOOLS = [detect_email_signals, route_to_department]
