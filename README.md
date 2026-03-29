@@ -9,17 +9,19 @@ A collection of agent samples built with [Google Agent Development Kit (ADK)](ht
 ```
 adk-samples/
 ├── weather_eats_agent/     # AI-powered restaurant discovery agent
-└── email_triage_agent/     # AI-powered email triage agent
+├── email_triage_agent/     # AI-powered email triage agent
+└── resend_mcp_server/      # Standalone MCP server for email via Resend
 ```
 
 ---
 
 ## Samples
 
-| Agent | Description | Tools |
-|-------|-------------|-------|
+| Agent / Service | Description | Tools |
+|-----------------|-------------|-------|
 | [weather_eats_agent](weather_eats_agent/) | Recommends restaurants based on live weather and location. Combines Google Maps MCP for weather/places lookup with Resend MCP for email delivery. | MCP (Google Maps, Resend) |
 | [email_triage_agent](email_triage_agent/) | Automated first-pass triage layer for business inboxes. Classifies, prioritizes, detects escalation risks, and routes emails to the right team. | Custom Python tools |
+| [resend_mcp_server](resend_mcp_server/) | Standalone MCP server exposing the Resend email API over Streamable HTTP. Deployable on Cloud Run; reusable by any agent. | Node.js, Resend API |
 
 ---
 
@@ -53,12 +55,23 @@ adk web
 
 Then open [http://localhost:8000](http://localhost:8000) and select the agent.
 
+### Quick Start — Resend MCP Server
+
+```bash
+cd resend_mcp_server
+npm install
+npm run dev
+```
+
+Server will be available at `http://localhost:3000/mcp`. See the [resend_mcp_server README](resend_mcp_server/) for Cloud Run deployment.
+
 ---
 
 ## Prerequisites
 
 - Python >= 3.10
 - [uv](https://docs.astral.sh/uv/) package manager
+- [Node.js](https://nodejs.org/) >= 18 (for `resend_mcp_server`)
 - Google Cloud project with Vertex AI enabled
 - `gcloud auth application-default login` for authentication
 
