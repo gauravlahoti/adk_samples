@@ -43,5 +43,8 @@ token.json
 htmlcov/
 coverage.xml
 
+# Node
+node_modules/
+
 # Logs
 *.log
