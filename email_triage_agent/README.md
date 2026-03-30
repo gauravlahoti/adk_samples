@@ -132,6 +132,90 @@ The agent returns a structured `TriageResult` with these fields:
 
 ---
 
+## Installing Prerequisites (From Scratch)
+
+If you're starting from zero, follow these steps in order.
+
+### 1. Install Python (≥ 3.10)
+
+<details>
+<summary><strong>macOS</strong></summary>
+
+```bash
+brew install python3
+python3 --version
+```
+
+> Don't have Homebrew? Install it first: https://brew.sh
+</details>
+
+<details>
+<summary><strong>Windows</strong></summary>
+
+1. Download the installer from [python.org/downloads](https://www.python.org/downloads/)
+2. Run it — **check "Add python.exe to PATH"**
+3. Open a **new** terminal and verify:
+```bash
+python --version
+```
+</details>
+
+<details>
+<summary><strong>Linux (Debian/Ubuntu)</strong></summary>
+
+```bash
+sudo apt update && sudo apt install -y python3 python3-pip
+python3 --version
+```
+</details>
+
+### 2. Install uv (package manager)
+
+<details>
+<summary><strong>macOS / Linux</strong></summary>
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+</details>
+
+<details>
+<summary><strong>Windows (PowerShell)</strong></summary>
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+</details>
+
+Restart your terminal, then verify:
+```bash
+uv --version
+```
+
+### 3. Install Google Cloud CLI
+
+<details>
+<summary><strong>macOS</strong></summary>
+
+```bash
+brew install --cask google-cloud-sdk
+```
+</details>
+
+<details>
+<summary><strong>Windows / Linux</strong></summary>
+
+Follow the official guide: [cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+</details>
+
+Then authenticate:
+```bash
+gcloud init
+gcloud auth application-default login
+```
+
+---
+
 ## Setup
 
 ### 1. Clone the repository
@@ -143,10 +227,23 @@ cd email_triage_agent
 
 ### 2. Create and activate a virtual environment
 
+<details>
+<summary><strong>macOS / Linux</strong></summary>
+
 ```bash
 uv venv
 source .venv/bin/activate
 ```
+</details>
+
+<details>
+<summary><strong>Windows (PowerShell)</strong></summary>
+
+```powershell
+uv venv
+.venv\Scripts\Activate.ps1
+```
+</details>
 
 ### 3. Install dependencies
 
@@ -154,14 +251,27 @@ source .venv/bin/activate
 uv sync
 ```
 
+> This installs all project dependencies including Google ADK. The `adk` CLI will be available inside the virtual environment.
+
 ### 4. Configure environment variables
 
-Create a `.env` file in this directory (use `.env.example` as a reference):
+<details>
+<summary><strong>macOS / Linux</strong></summary>
 
 ```bash
 cp .env.example .env
-# Then open .env and fill in your actual values
 ```
+</details>
+
+<details>
+<summary><strong>Windows (PowerShell)</strong></summary>
+
+```powershell
+copy .env.example .env
+```
+</details>
+
+Then open `.env` and fill in your values:
 
 `.env` variables:
 
