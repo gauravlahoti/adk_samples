@@ -1,0 +1,13 @@
+[project]
+name = "legal-case-assistant-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "google-adk>=1.28.0",
+    "google-cloud-logging>=3.15.0",
+    "python-dotenv>=1.2.2",
+    "toolbox-adk>=1.0.0",
+    "toolbox-core>=1.0.0",
+]

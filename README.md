@@ -8,9 +8,10 @@ A collection of agent samples built with [Google Agent Development Kit (ADK)](ht
 
 ```
 adk-samples/
-├── weather_eats_agent/     # AI-powered restaurant discovery agent
-├── email_triage_agent/     # AI-powered email triage agent
-└── resend_mcp_server/      # Standalone MCP server for email via Resend
+├── weather_eats_agent/          # AI-powered restaurant discovery agent
+├── email_triage_agent/          # AI-powered email triage agent
+├── legal_case_assistant_agent/  # AI-powered legal research assistant
+└── resend_mcp_server/           # Standalone MCP server for email via Resend
 ```
 
 ---
@@ -21,6 +22,7 @@ adk-samples/
 |-----------------|-------------|-------|
 | [weather_eats_agent](weather_eats_agent/) | Recommends restaurants based on live weather and location. Combines Google Maps MCP for weather/places lookup with Resend MCP for email delivery. | MCP (Google Maps, Resend) |
 | [email_triage_agent](email_triage_agent/) | Automated first-pass triage layer for business inboxes. Classifies, prioritizes, detects escalation risks, and routes emails to the right team. | Custom Python tools |
+| [legal_case_assistant_agent](legal_case_assistant_agent/) | Searches Indian civil and family law cases using natural language. Performs semantic similarity search over court judgments in AlloyDB via MCP Toolbox for Databases. | ToolboxToolset (MCP Toolbox) |
 | [resend_mcp_server](resend_mcp_server/) | Standalone MCP server exposing the Resend email API over Streamable HTTP. Deployable on Cloud Run; reusable by any agent. | Node.js, Resend API |
 
 ---

@@ -1,0 +1,42 @@
+kind: source
+name: legal-alloydb
+type: postgres
+host: ${ALLOYDB_PUBLIC_IP}
+port: 5432
+database: ${DATABASE_NAME}
+user: ${DB_USER}
+password: ${DB_PASSWORD}
+---
+kind: tool
+name: search-legal-cases
+type: postgres-sql
+source: legal-alloydb
+description: >
+  Search Indian legal cases using natural language. Performs semantic
+  similarity search across eviction orders, partition cases, divorce
+  decrees, and rent revision cases stored in AlloyDB.
+parameters:
+  - name: query
+    type: string
+    description: The natural language search query describing the legal case or situation
+statement: >
+  SELECT
+      case_id,
+      case_type,
+      case_title,
+      court_name,
+      state,
+      judgment_date,
+      petitioner,
+      respondent,
+      outcome,
+      case_summary,
+      1 - (embedding <=> embedding('text-embedding-005', $1)::vector) AS similarity_score
+  FROM legal_cases
+  ORDER BY similarity_score DESC
+  LIMIT 5;
+---
+kind: toolset
+name: legal-assistant
+tools:
+  - search-legal-cases
