@@ -301,50 +301,35 @@ Then open [http://localhost:8000](http://localhost:8000) in your browser and sel
 
 Deploy the agent to Google Cloud Run for production use.
 
-### 1. Set environment variables
-
-<details>
-<summary><strong>macOS / Linux</strong></summary>
-
-```bash
-source .env
-export SERVICE_NAME="weather-eats-agent-service"
-export APP_NAME="weather_eats_agent"
-export AGENT_PATH="./weather_eats_agent"
-```
-</details>
-
-<details>
-<summary><strong>Windows (PowerShell)</strong></summary>
-
-```powershell
-Get-Content .env | ForEach-Object { if ($_ -match '^\s*([^#][^=]+)=(.*)$') { [System.Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim()) } }
-$env:SERVICE_NAME = "weather-eats-agent-service"
-$env:APP_NAME = "weather_eats_agent"
-$env:AGENT_PATH = ".\weather_eats_agent"
-```
-</details>
-
-### 2. Deploy with ADK CLI
+### 1. Deploy with ADK CLI
 
 ```bash
 adk deploy cloud_run \
   --project=$GOOGLE_CLOUD_PROJECT \
   --region=$GOOGLE_CLOUD_LOCATION \
-  --service_name=$SERVICE_NAME \
-  --app_name=$APP_NAME \
+  --service_name=weather-eats-agent \
   --with_ui \
-  $AGENT_PATH
+  ./weather_eats_agent
 ```
 
-### 3. Access the deployed agent
+**Parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `--project` | Your Google Cloud project |
+| `--region` | Deployment region (e.g., `us-central1`) |
+| `--service_name` | Name for Cloud Run service |
+| `--with_ui` | Include web interface (optional but recommended) |
+| `./weather_eats_agent` | Your agent directory |
+
+### 2. Access the deployed agent
 
 After deployment completes, the CLI will output a URL like:
 ```
-https://weather-eats-agent-service-xxxxxx-uc.a.run.app
+https://weather-eats-agent-xxxxxx-uc.a.run.app
 ```
 
-### 4. View logs in Cloud Logging
+### 3. View logs in Cloud Logging
 
 The agent emits structured logs with the prefix `WEATHER_EATS_AGENT:` for easy filtering.
 

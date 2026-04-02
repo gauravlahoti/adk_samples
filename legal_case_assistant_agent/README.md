@@ -208,25 +208,27 @@ gcloud run deploy $SERVICE_NAME \
 > Dockerfile only installs `google-adk` by default.
 
 ```bash
-source legal_case_assistant_agent/.env
-export SERVICE_NAME="legal-case-assistant-service"
-export APP_NAME="legal_case_assistant_agent"
-export AGENT_PATH="./legal_case_assistant_agent"
-
 adk deploy cloud_run \
   --project=$GOOGLE_CLOUD_PROJECT \
   --region=$GOOGLE_CLOUD_LOCATION \
-  --service_name=$SERVICE_NAME \
-  --app_name=$APP_NAME \
+  --service_name=legal-case-assistant-agent \
   --with_ui \
-  $AGENT_PATH \
-  -- --allow-unauthenticated \
-  --set-env-vars="GOOGLE_GENAI_USE_VERTEXAI=$GOOGLE_GENAI_USE_VERTEXAI,GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT,GOOGLE_CLOUD_LOCATION=$GOOGLE_CLOUD_LOCATION,TOOLBOX_URL=$TOOLBOX_URL,MODEL=$MODEL"
+  ./legal_case_assistant_agent
 ```
+
+**Parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `--project` | Your Google Cloud project |
+| `--region` | Deployment region (e.g., `us-central1`) |
+| `--service_name` | Name for Cloud Run service |
+| `--with_ui` | Include web interface (optional but recommended) |
+| `./legal_case_assistant_agent` | Your agent directory |
 
 After deployment completes, the CLI will output a URL like:
 ```
-https://legal-case-assistant-service-xxxxxx-uc.a.run.app
+https://legal-case-assistant-agent-xxxxxx-uc.a.run.app
 ```
 
 Open the URL in your browser to access the ADK Web UI.
@@ -243,7 +245,7 @@ gcloud run services delete legal-case-assistant-service \
   --quiet
 ```
 
-### 5. View logs in Cloud Logging
+### 4. View logs in Cloud Logging
 
 ```
 resource.type="cloud_run_revision"

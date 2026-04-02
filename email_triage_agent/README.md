@@ -312,35 +312,35 @@ adk run email_triage_agent
 
 Deploy the agent to Google Cloud Run for production use.
 
-### 1. Set environment variables
-
-```bash
-source .env
-export SERVICE_NAME="email-triage-agent-service"
-export APP_NAME="email_triage_agent"
-export AGENT_PATH="./email_triage_agent"
-```
-
-### 2. Deploy with ADK CLI
+### 1. Deploy with ADK CLI
 
 ```bash
 adk deploy cloud_run \
   --project=$GOOGLE_CLOUD_PROJECT \
   --region=$GOOGLE_CLOUD_LOCATION \
-  --service_name=$SERVICE_NAME \
-  --app_name=$APP_NAME \
+  --service_name=email-triage-agent \
   --with_ui \
-  $AGENT_PATH
+  ./email_triage_agent
 ```
 
-### 3. Access the deployed agent
+**Parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `--project` | Your Google Cloud project |
+| `--region` | Deployment region (e.g., `us-central1`) |
+| `--service_name` | Name for Cloud Run service |
+| `--with_ui` | Include web interface (optional but recommended) |
+| `./email_triage_agent` | Your agent directory |
+
+### 2. Access the deployed agent
 
 After deployment completes, the CLI will output a URL like:
 ```
-https://email-triage-agent-service-xxxxxx-uc.a.run.app
+https://email-triage-agent-xxxxxx-uc.a.run.app
 ```
 
-### 4. View logs in Cloud Logging
+### 3. View logs in Cloud Logging
 
 The agent emits structured logs with the prefix `EMAIL_TRIAGE_AGENT:` for easy filtering.
 
@@ -371,7 +371,7 @@ gcloud logging read 'textPayload=~"EMAIL_TRIAGE_AGENT:ESCALATION"' \
 
 Or view in the [GCP Console](https://console.cloud.google.com/logs).
 
-### 5. Undeploy the agent
+### 4. Undeploy the agent
 
 To delete the Cloud Run service:
 
