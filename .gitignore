@@ -15,7 +15,7 @@ env/
 # Secrets and credentials
 .env
 .env.*
-!.env.example
+!.env.template
 *.pem
 *.key
 *.p12

@@ -259,7 +259,7 @@ uv sync
 <summary><strong>macOS / Linux</strong></summary>
 
 ```bash
-cp .env.example .env
+cp .env.template .env
 ```
 </details>
 
@@ -267,7 +267,7 @@ cp .env.example .env
 <summary><strong>Windows (PowerShell)</strong></summary>
 
 ```powershell
-copy .env.example .env
+copy .env.template .env
 ```
 </details>
 
@@ -423,7 +423,7 @@ email_triage_agent/
 │   ├── prompts.py        # System instructions
 │   └── tools.py          # Custom tools (detect_email_signals, route_to_department)
 ├── .env                  # Environment variables (not committed)
-├── .env.example          # Environment variable template
+├── .env.template         # Environment variable template
 ├── pyproject.toml        # Project configuration
 ├── uv.lock               # Dependency lock file
 └── README.md             # This file

@@ -252,7 +252,7 @@ uv sync
 <summary><strong>macOS / Linux</strong></summary>
 
 ```bash
-cp .env.example .env
+cp .env.template .env
 ```
 </details>
 
@@ -260,7 +260,7 @@ cp .env.example .env
 <summary><strong>Windows (PowerShell)</strong></summary>
 
 ```powershell
-copy .env.example .env
+copy .env.template .env
 ```
 </details>
 
@@ -399,7 +399,7 @@ Track_2/
 │   ├── __init__.py
 │   ├── agent.py          # Agent definition, MCP toolset wiring
 │   └── prompts.py        # System instruction for the LLM
-├── .env.example          # Environment variable template
+├── .env.template         # Environment variable template
 ├── .gitignore
 ├── pyproject.toml
 └── README.md

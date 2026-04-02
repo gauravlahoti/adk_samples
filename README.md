@@ -32,7 +32,7 @@ adk-samples/
 Each agent is a self-contained project with its own:
 - `pyproject.toml` — project configuration
 - `README.md` — setup and usage instructions
-- `.env.example` — environment variable template
+- `.env.template` — environment variable template
 
 ### Quick Start
 
@@ -48,7 +48,7 @@ source .venv/bin/activate
 uv sync
 
 # Configure environment
-cp .env.example .env
+cp .env.template .env
 # Edit .env with your values
 
 # Run the agent
