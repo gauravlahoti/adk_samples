@@ -186,7 +186,24 @@ export SERVICE_NAME="legal-case-toolbox"
 export IMAGE="us-central1-docker.pkg.dev/database-toolbox/toolbox/toolbox:v0.31.0"
 ```
 
-### 2. Deploy MCP Toolbox to Cloud Run
+### 2. Create a Secret in Secret Manager for tools.yaml
+
+```bash
+gcloud secrets create tools \
+    --project=$PROJECT_ID \
+    --data-file=tools.yaml
+```
+
+> **Note:** Each MCP Toolbox deployment should use its own secret. If you are
+> deploying multiple toolbox instances (e.g. `legal-case-toolbox` and
+> `error-kb-toolbox`), create separate secrets with distinct names and
+> reference them in `--set-secrets` accordingly.
+
+### 3. Deploy MCP Toolbox to Cloud Run
+
+> **Toolbox v0.31.0+ Breaking Change:** The REST API (`/api/toolset/...`) is
+> disabled by default. You **must** pass `--enable-api` in `--args` for the
+> UI and API endpoints to work.
 
 ```bash
 gcloud run deploy $SERVICE_NAME \
@@ -201,7 +218,7 @@ gcloud run deploy $SERVICE_NAME \
     --allow-unauthenticated
 ```
 
-### 3. Deploy the Agent to Cloud Run
+### 4. Deploy the Agent to Cloud Run
 
 > **Important:** The agent source directory must contain a `requirements.txt` listing
 > extra dependencies (`toolbox-adk`, `toolbox-core`, etc.) — the ADK-generated
@@ -233,7 +250,7 @@ https://legal-case-assistant-agent-xxxxxx-uc.a.run.app
 
 Open the URL in your browser to access the ADK Web UI.
 
-### 4. Undeploy the agent
+### 5. Undeploy the agent
 
 To delete the Cloud Run service:
 
@@ -245,7 +262,7 @@ gcloud run services delete legal-case-assistant-service \
   --quiet
 ```
 
-### 4. View logs in Cloud Logging
+### 6. View logs in Cloud Logging
 
 ```
 resource.type="cloud_run_revision"
