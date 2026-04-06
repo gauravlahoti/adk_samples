@@ -8,6 +8,9 @@ A collection of agent samples built with [Google Agent Development Kit (ADK)](ht
 
 ```
 adk-samples/
+├── error-lens-mas/              # Multi-agent GCP error triage system (ErrorLens)
+├── error-kb-agent/              # Error knowledge bank agent with A2A support
+├── error-kb-toolbox/            # MCP Toolbox for Databases (AlloyDB + pgvector)
 ├── weather_eats_agent/          # AI-powered restaurant discovery agent
 ├── email_triage_agent/          # AI-powered email triage agent
 ├── legal_case_assistant_agent/  # AI-powered legal research assistant
@@ -20,6 +23,9 @@ adk-samples/
 
 | Agent / Service | Description | Tools |
 |-----------------|-------------|-------|
+| [error-lens-mas](error-lens-mas/) | Multi-agent GCP error triage system. Turns raw errors into structured triage, parallel research, confidence-scored synthesis, and developer-facing responses. | Google Search, Developer Knowledge MCP |
+| [error-kb-agent](error-kb-agent/) | Error knowledge bank agent exposed as a remote A2A service. Searches, records, and manages GCP error resolutions from AlloyDB. | ToolboxToolset (MCP Toolbox) |
+| [error-kb-toolbox](error-kb-toolbox/) | MCP Toolbox for Databases deployment providing semantic error search, fix tracking, and case management over AlloyDB with pgvector embeddings. | MCP Toolbox for Databases |
 | [weather_eats_agent](weather_eats_agent/) | Recommends restaurants based on live weather and location. Combines Google Maps MCP for weather/places lookup with Resend MCP for email delivery. | MCP (Google Maps, Resend) |
 | [email_triage_agent](email_triage_agent/) | Automated first-pass triage layer for business inboxes. Classifies, prioritizes, detects escalation risks, and routes emails to the right team. | Custom Python tools |
 | [legal_case_assistant_agent](legal_case_assistant_agent/) | Searches Indian civil and family law cases using natural language. Performs semantic similarity search over court judgments in AlloyDB via MCP Toolbox for Databases. | ToolboxToolset (MCP Toolbox) |
